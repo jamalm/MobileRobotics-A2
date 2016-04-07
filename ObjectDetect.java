@@ -17,7 +17,7 @@ public class ObjectDetect implements Behavior{
 
 	//constructor
 	public ObjectDetect(float _length, float _width){
-		sonar = new UltrasonciSensor(SensorPort.S4);
+		sonar = new UltrasonicSensor(SensorPort.S4);
 		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
 		length = _length;
 		width = _width;
