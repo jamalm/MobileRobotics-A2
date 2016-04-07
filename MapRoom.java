@@ -2,9 +2,6 @@ import lejos.robotics.subsumption.*;
 import lejos.nxt.*;
 import lejos.robotics.navigation.DifferentialPilot;
 
-import lejos.nxt.LCD;
-import lejos.nxt.SensorPort;
-import lejos.nxt.UltrasonicSensor;
 
 /*
  *	Behavior class to control the initial recognition lap of the room
@@ -16,6 +13,8 @@ import lejos.nxt.UltrasonicSensor;
 public class MapRoom {
 	private DifferentialPilot pilot;
 	private UltrasonicSensor sonar;
+	private LightSensor light;
+	private int lightAverage = 0;
 	private float[] lengths = new float[4];
 	private float length ,width;
 
@@ -23,12 +22,14 @@ public class MapRoom {
 	public MapRoom(){
 
 		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
-		sonar = new UlttraSonicSensor(SensorPort.S4);
+		sonar = new UltraSonicSensor(SensorPort.S4);
+		light = new LightSensor(SensorPort.S3);
 
 		for(int i=0;i<4;i++){
 			pilot.resetTachoCount();
 			pilot.forward();
 			if(sonar.getDistance() < 20){
+				lightAverage += light.getLightValue();
 				lengths[i] = pilot.getMovement().getDistanceTraveled();
 				pilot.rotate(90);
 			}
@@ -36,6 +37,7 @@ public class MapRoom {
 		
 		length = lengths[0];
 		width = lengths[1];
+		lightAverage /= 4;
 	}
 	
 	public float getLength(){
@@ -44,5 +46,9 @@ public class MapRoom {
 
 	public float getWidth(){
 		return width;
+	}
+
+	public getFloorAvg(){
+		return lightAverage;
 	}
 }

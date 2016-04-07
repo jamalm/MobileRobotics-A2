@@ -14,10 +14,11 @@ public class Main {
 	public static void main(String[] args) {
 		MapRoom map = new mapRoom();
 
+		Behavior move = new Move();
 		Behavior obj = new ObjectDetect(map.getLength(), map.getWidth());//detects objects
 		Behavior surf = new SurfaceDetect();//detects surface type
 		Behavior end = new HitWall();//end condition
-		Behavior[] steps = {obj, surf, end};
+		Behavior[] steps = {move, obj, surf, end};
 
 
 		Arbitrator controller = new Arbitrator(steps);
