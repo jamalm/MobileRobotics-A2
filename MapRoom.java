@@ -3,6 +3,7 @@ import lejos.nxt.Motor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.LCD;
 
 import lejos.robotics.navigation.DifferentialPilot;
 
@@ -28,25 +29,25 @@ public class MapRoom {
 		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
 		sonar = new UltrasonicSensor(SensorPort.S4);
 		light = new LightSensor(SensorPort.S3);
-		calcRoom();
-	}
-	
-	private void calcRoom(){
-	
+		
+		LCD.drawString("CalcRoom", 4,0);
 		for(int i=0;i<4;i++){
-				pilot.reset();
+			pilot.reset();
+			while(sonar.getDistance() > 35){
 				pilot.forward();
-				if(sonar.getDistance() < 20){
-					lightAverage += light.getLightValue();
-					lengths[i] = pilot.getMovement().getDistanceTraveled();
-					pilot.rotate(90);
-				}
 			}
-			
-			length = lengths[0];
-			width = lengths[1];
-			lightAverage /= 4;
+			lightAverage += light.getLightValue();
+			lengths[i] = pilot.getMovement().getDistanceTraveled();
+			pilot.rotate(75);
+		}
+		length = lengths[0];
+		width = lengths[1];
+		lightAverage /= 4;	
+		
+		LCD.clear();
+		LCD.drawString("MapRoom Calculated", 8,10);
 	}
+	
 	
 	public float getLength(){
 		return length;
