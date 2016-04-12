@@ -12,11 +12,11 @@ import lejos.nxt.*;
 
 public class Main {
 	public static void main(String[] args) {
-		MapRoom map = new mapRoom();
+		MapRoom map = new MapRoom();
 
 		Behavior move = new Move();
 		Behavior obj = new ObjectDetect(map.getLength(), map.getWidth());//detects objects
-		Behavior surf = new SurfaceDetect();//detects surface type
+		Behavior surf = new SurfaceDetect(map.getFloorAvg());//detects surface type
 		Behavior end = new HitWall();//end condition
 		Behavior[] steps = {move, obj, surf, end};
 

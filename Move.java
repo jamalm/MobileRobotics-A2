@@ -17,13 +17,13 @@ public class Move implements Behavior{
 
 	public void action(){
 		suppressed = false;
-		pilot.resetTachoCount();
+		pilot.reset();
 		pilot.forward();
 	}
 	
 	public void suppress(){
 		suppressed = true;
-		travelled = pilot.getMovement.getDistanceTraveled();
+		travelled = pilot.getMovement().getDistanceTraveled();
 	}
 
 	public boolean takeControl(){

@@ -13,7 +13,7 @@ public class ObjectDetect implements Behavior{
 	private float length, width;
 	private DifferentialPilot pilot;
 	private UltrasonicSensor sonar;
-	private Behavior position;
+	private Move position;
 
 	//constructor
 	public ObjectDetect(float _length, float _width){
@@ -27,7 +27,7 @@ public class ObjectDetect implements Behavior{
 	public void action(){
 		suppressed = false;
 		
-		if(position < (length - (length/4))){
+		if(position.getPosition() < (length - (length/4))){
 			pilot.stop();
 			pilot.rotate(90);
 
