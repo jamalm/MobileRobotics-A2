@@ -12,9 +12,10 @@ import lejos.nxt.*;
 
 public class Main {
 	public static void main(String[] args) {
-		MapRoom map = new MapRoom();
+		MapRoom map = new MapRoom();                          
 
-		Behavior move = new Move();
+		LCD.drawString("Behaviours initialised", 8,20);
+		Behavior move = new Move(map.getLength());
 		Behavior obj = new ObjectDetect(map.getLength(), map.getWidth());//detects objects
 		Behavior surf = new SurfaceDetect(map.getFloorAvg());//detects surface type
 		Behavior end = new HitWall();//end condition
@@ -23,6 +24,7 @@ public class Main {
 
 		Arbitrator controller = new Arbitrator(steps);
 
+		LCD.drawString("start behavoirs", 8,30);
 		controller.start();
 	}
 }

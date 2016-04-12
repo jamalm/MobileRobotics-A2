@@ -19,7 +19,10 @@ public class HitWall implements Behavior{
 
 	public void action(){
 		suppressed = false;
-		
+		pilot.stop();
+		LCD.drawString("END", 50, 50);
+		Button.waitForAnyPress();
+		System.exit(0);
 	}
 	
 	public void suppress(){

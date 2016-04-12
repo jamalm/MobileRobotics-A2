@@ -21,25 +21,18 @@ public class ObjectDetect implements Behavior{
 		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
 		length = _length;
 		width = _width;
-		position = new Move();
 	}
 
 	public void action(){
 		suppressed = false;
-		
-		if(position.getPosition() < (length - (length/4))){
-			pilot.stop();
-			pilot.rotate(90);
+		LCD.clear();
+		LCD.drawString("Object Detected!", 50, 50);
+		pilot.stop();
+		pilot.rotate(75);
 
-			pilot.steer(35, 90);
+		pilot.steer(35, 75);
 
-			pilot.rotate(90);
-		}
-		else{
-			pilot.rotate(90);
-			pilot.travel(7);
-			pilot.rotate(90);
-		}
+		pilot.rotate(75);
 	}
 
 	public void suppress(){
@@ -47,6 +40,6 @@ public class ObjectDetect implements Behavior{
 	}
 
 	public boolean takeControl(){
-		return sonar.getDistance() < 35;
+		return sonar.getDistance() < 35 && position.getPosition() < (length - (length/3));
 	}
 }
