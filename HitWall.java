@@ -1,6 +1,10 @@
-import lejos.robotics.subsumption.*;
-import lejos.nxt.*;
+import lejos.nxt.Button;
+import lejos.nxt.LCD;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
+import lejos.robotics.subsumption.Behavior;
 
 /*
  *
