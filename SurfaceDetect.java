@@ -1,7 +1,8 @@
-import lejos.robotics.subsumption.*;
-import lejos.nxt.*;
-import lejos.robotics.navigation.DifferentialPilot;
-
+import lejos.nxt.LCD;
+import lejos.nxt.LightSensor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.Sound;
+import lejos.robotics.subsumption.Behavior;
 
 /*
  * Behavior that reacts to a change in colour of floor
