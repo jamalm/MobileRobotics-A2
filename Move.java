@@ -1,8 +1,6 @@
-import lejos.robotics.subsumption.*;
-
-import lejos.nxt.*;
+import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
-
+import lejos.robotics.subsumption.Behavior;
 
 public class Move implements Behavior{
 	
@@ -12,9 +10,6 @@ public class Move implements Behavior{
 	private float length;
 	private boolean direction;
 
-	public Move(){
-		//for referencing to Object
-	}
 	public Move(float _length){
 		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
 		travelled = 0;
@@ -39,19 +34,14 @@ public class Move implements Behavior{
 			pilot.travel(7);
 			pilot.rotate(-75);
 		}
-		travelled = 0;
 	}
 	
 	public void suppress(){
-		travelled = pilot.getMovement().getDistanceTraveled();
+		Main.setDistance(pilot.getMovement().getDistanceTraveled());
 		suppressed = true;
 	}
 
 	public boolean takeControl(){
 		return true;
-	}
-	
-	public float getPosition(){
-		return travelled;
 	}
 }
