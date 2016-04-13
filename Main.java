@@ -1,5 +1,7 @@
-import lejos.robotics.subsumption.*;
-import lejos.nxt.*;
+
+import lejos.nxt.LCD;
+import lejos.robotics.subsumption.Arbitrator;
+import lejos.robotics.subsumption.Behavior;
 
 /*
  * Assignment 2 for Mobile Robotics 
@@ -11,8 +13,20 @@ import lejos.nxt.*;
  */
 
 public class Main {
+	
+	public static MapRoom map;
+	public static float distance;
+	
+	public static void setDistance(float travelled){
+		distance = travelled;
+	}
+	
+	public static float getDistance(){
+		return distance;
+	}
+	
 	public static void main(String[] args) {
-		MapRoom map = new MapRoom();                          
+		map = new MapRoom();                          
 
 		LCD.drawString("Behaviours initialised", 8,20);
 		Behavior move = new Move(map.getLength());
@@ -24,7 +38,7 @@ public class Main {
 
 		Arbitrator controller = new Arbitrator(steps);
 
-		LCD.drawString("start behavoirs", 8,30);
+		LCD.drawString("start behaviors", 8,30);
 		controller.start();
 	}
 }
