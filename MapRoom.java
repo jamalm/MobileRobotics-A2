@@ -21,7 +21,7 @@ public class MapRoom {
 	private LightSensor light;
 	private int lightAverage = 0;
 	private float[] lengths = new float[4];
-	private float length ,width;
+	private static float length ,width;
 
 	//constructor
 	public MapRoom(){
