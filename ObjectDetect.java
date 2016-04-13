@@ -1,10 +1,11 @@
-import lejos.robotics.subsumption.*;
-import lejos.nxt.*;
+import lejos.nxt.LCD;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
-
+import lejos.robotics.subsumption.Behavior;
 
 /*
-
 */
 
 public class ObjectDetect implements Behavior{
@@ -40,6 +41,6 @@ public class ObjectDetect implements Behavior{
 	}
 
 	public boolean takeControl(){
-		return sonar.getDistance() < 35 && position.getPosition() < (length - (length/3));
+		return sonar.getDistance() < 35 && Main.getDistance() < (length - (length/3));
 	}
 }
