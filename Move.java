@@ -1,3 +1,6 @@
+package com.deadmadness.vacuum;
+
+import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
@@ -23,6 +26,7 @@ public class Move implements Behavior{
 		
 		while(pilot.getMovement().getDistanceTraveled() < length - 5){
 			pilot.forward();
+			LCD.drawString("travelling : ", 50, 50);
 		}
 		direction = !direction;
 		if(direction){

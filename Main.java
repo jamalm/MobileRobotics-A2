@@ -1,4 +1,6 @@
+package com.deadmadness.vacuum;
 
+import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
@@ -26,19 +28,45 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
+		
+		/*
+		 * 
+		 * Test 1 
+		 * Case
+		 * Check to see if distance returned is correct
+		 */
 		map = new MapRoom();                          
 
-		LCD.drawString("Behaviours initialised", 8,20);
-		Behavior move = new Move(map.getLength());
+		LCD.drawString("Results from MapRoom", 8,20);
+		LCD.drawString("Distance: " + getDistance(), 10, 20);
+		Button.waitForAnyPress();
+		/* 
+		 * Test 1 complete 
+		 * 
+		 */
+		
+		
+		/*
+		 * 
+		 * Test 2 start 
+		 * CASE 
+		 * Check to see distance travelled is being recorded in move function
+		 * 
+		 */
+		
+		Behavior move = new Move(distance);
+		/*
 		Behavior obj = new ObjectDetect(map.getLength(), map.getWidth());//detects objects
 		Behavior surf = new SurfaceDetect(map.getFloorAvg());//detects surface type
 		Behavior end = new HitWall();//end condition
-		Behavior[] steps = {move, obj, surf, end};
+		*/
+		Behavior[] steps = {move};
 
 
 		Arbitrator controller = new Arbitrator(steps);
 
-		LCD.drawString("start behaviors", 8,30);
-		controller.start();
+		//LCD.drawString("start behaviors", 8,30);
+		//LCD.clear();
+		//controller.start();
 	}
 }

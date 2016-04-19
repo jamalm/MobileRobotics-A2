@@ -1,10 +1,11 @@
-import lejos.robotics.subsumption.*;
-import lejos.nxt.Motor;
-import lejos.nxt.UltrasonicSensor;
-import lejos.nxt.LightSensor;
-import lejos.nxt.SensorPort;
-import lejos.nxt.LCD;
+package com.deadmadness.vacuum;
 
+
+import lejos.nxt.LCD;
+import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 
 
@@ -35,12 +36,13 @@ public class MapRoom {
 			pilot.reset();
 			while(sonar.getDistance() > 35){
 				pilot.forward();
+				LCD.drawInt(sonar.getDistance(), 50, 50);
 			}
 			lightAverage += light.getLightValue();
 			lengths[i] = pilot.getMovement().getDistanceTraveled();
 			pilot.rotate(75);
 		}
-		length = lengths[0];
+		Main.setDistance(lengths[0]);
 		width = lengths[1];
 		lightAverage /= 4;	
 		
