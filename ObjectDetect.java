@@ -11,17 +11,15 @@ import lejos.robotics.subsumption.Behavior;
 public class ObjectDetect implements Behavior{
 	//fields
 	private boolean suppressed = false;
-	private float length, width;
+	private float length, position;
 	private DifferentialPilot pilot;
 	private UltrasonicSensor sonar;
-	private Move position;
 
 	//constructor
-	public ObjectDetect(float _length, float _width){
+	public ObjectDetect(){
 		sonar = new UltrasonicSensor(SensorPort.S4);
 		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
-		length = _length;
-		width = _width;
+		length = Main.distance;
 	}
 
 	public void action(){
@@ -41,6 +39,6 @@ public class ObjectDetect implements Behavior{
 	}
 
 	public boolean takeControl(){
-		return sonar.getDistance() < 35 && Main.getDistance() < (length - (length/3));
+		return sonar.getDistance() < 35 && Main.getTempDist() < (length - (length/3));
 	}
 }

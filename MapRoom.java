@@ -1,5 +1,3 @@
-package com.deadmadness.vacuum;
-
 
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
@@ -27,27 +25,26 @@ public class MapRoom {
 	//constructor
 	public MapRoom(){
 
-		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
+		pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.B);
 		sonar = new UltrasonicSensor(SensorPort.S4);
 		light = new LightSensor(SensorPort.S3);
 		
-		LCD.drawString("CalcRoom", 4,0);
+		//LCD.drawString("CalcRoom", 4,0);
 		for(int i=0;i<4;i++){
 			pilot.reset();
 			while(sonar.getDistance() > 35){
 				pilot.forward();
-				LCD.drawInt(sonar.getDistance(), 50, 50);
 			}
 			lightAverage += light.getLightValue();
 			lengths[i] = pilot.getMovement().getDistanceTraveled();
-			pilot.rotate(75);
+			pilot.rotate(70);
 		}
 		Main.setDistance(lengths[0]);
 		width = lengths[1];
 		lightAverage /= 4;	
 		
 		LCD.clear();
-		LCD.drawString("MapRoom Calculated", 8,10);
+		//LCD.drawString("MapRoom Calculated", 4,0);
 	}
 	
 	

@@ -27,6 +27,9 @@ public class HitWall implements Behavior{
 		LCD.drawString("END", 50, 50);
 		Button.waitForAnyPress();
 		System.exit(0);
+		while(!suppressed){
+			Thread.yield();
+		}
 	}
 	
 	public void suppress(){

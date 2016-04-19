@@ -1,50 +1,60 @@
-package com.deadmadness.vacuum;
 
 import lejos.nxt.LCD;
+import lejos.nxt.Button;
 import lejos.nxt.Motor;
+
+import lejos.robotics.navigation.ArcRotateMoveController;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
 public class Move implements Behavior{
 	
 	private boolean suppressed = false;
-	private DifferentialPilot pilot;
+	private ArcRotateMoveController pilot;
 	private static float travelled;	
-	private float length;
+	private static float length;
 	private boolean direction;
 
 	public Move(float _length){
-		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
+		pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
 		travelled = 0;
 		length = _length;
-		direction = true;
+		direction = false;
 	}
 
 	public void action(){
 		suppressed = false;
-		pilot.reset();
 		
-		while(pilot.getMovement().getDistanceTraveled() < length - 5){
+		while(!suppressed){
+			if(Main.getTempDist() != length){
 			pilot.forward();
-			LCD.drawString("travelling : ", 50, 50);
-		}
-		direction = !direction;
-		if(direction){
-			pilot.rotate(75);
-			pilot.travel(7);
-			pilot.rotate(75);
-		} else {
-			pilot.rotate(-75);
-			pilot.travel(7);
-			pilot.rotate(-75);
+			}
+			while(Main.getTempDist() < length){
+				
+				Main.setTempDist(pilot.getMovement().getDistanceTraveled());
+				LCD.drawString("MOVING: " + Main.getTempDist(), 0, 0);
+			}
+			pilot.stop();
+			
+			direction = !direction;
+			if(direction){
+				pilot.rotate(90);
+				pilot.travel(7);
+				pilot.rotate(90);
+				Main.setTempDist(0);
+			} else {
+				pilot.rotate(-90);
+				pilot.travel(7);
+				pilot.rotate(-90);
+				Main.setTempDist(0);
+			}
 		}
 	}
 	
 	public void suppress(){
-		Main.setDistance(pilot.getMovement().getDistanceTraveled());
 		suppressed = true;
 	}
-
+	
 	public boolean takeControl(){
 		return true;
 	}

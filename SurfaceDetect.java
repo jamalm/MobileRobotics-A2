@@ -27,8 +27,12 @@ public class SurfaceDetect implements Behavior{
 	//if different surface colour is detected
 	public void action(){
 		suppressed = false;
-		LCD.drawString("Carpet", 50, 50);
-		Sound.beep();
+		
+		
+		while(!suppressed){
+			LCD.drawString("Carpet", 50, 50);
+			Sound.beep();
+		}
 	}
 
 	//suppresses behavior
@@ -38,6 +42,6 @@ public class SurfaceDetect implements Behavior{
 
 	//activates behavior 
 	public boolean takeControl(){
-	return light.getLightValue() > (floorColour+9) || light.getLightValue() < (floorColour-9);
+	return light.getLightValue() > (Main.getLightAvg()+9) || light.getLightValue() < (Main.getLightAvg()-9);
 	}
 }
