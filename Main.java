@@ -16,23 +16,20 @@ import lejos.robotics.subsumption.Behavior;
  */
 
 public class Main {
-	
-	public static MapRoom map;
-	public static float distance;
-	public static float temp;
+	//static variables
+	private static float distance;
+	private static float position;
+	private static int lightAverage;
+
+	private static float length ,width;
+
+	// Hardware Sensors
 	public static ArcRotateMoveController pilot;
 	public static UltrasonicSensor sonar;
 	public static LightSensor light;
 	
-	private static int lightAverage;
-	private static float[] lengths = new float[4];
-	private static float length ,width;
 	
-	
-	
-	
-	
-	
+	//Distance setters and getters
 	public static void setDistance(float travelled){
 		distance = travelled;
 	}
@@ -40,15 +37,19 @@ public class Main {
 	public static float getDistance(){
 		return distance;
 	}
+
 	
-	public static void setTempDist(float _temp){
-		temp = _temp;
+	//Temp getters and setters	
+	public static void setPosition(float pos){
+		position = pos;
 	}
 	
-	public static float getTempDist(){
-		return temp;
+	public static float getPosition(){
+		return position;
 	}
 	
+
+	//Light getters and setters
 	public static void setLightAvg(int _light){
 		lightAverage = _light;
 	}
@@ -64,30 +65,30 @@ public class Main {
 	
 	
 	public static void map(){
-		pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
+		//init hardware sensors
+		pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.B);
 		sonar = new UltrasonicSensor(SensorPort.S4);
 		light = new LightSensor(SensorPort.S3);
+		//local distance variable
 		float dist = 0;
+
+		//measure four lengths
 		for(int i=0;i<4;i++){
-			pilot.forward();
-			while(sonar.getDistance() > 35){
+			pilot.forward();//move forward
+			while(sonar.getDistance() > 35){//break only if robot comes close to a wall
 				
-				dist = pilot.getMovement().getDistanceTraveled();
-				
+				dist = pilot.getMovement().getDistanceTraveled();//store distance travelled
 				LCD.drawString("" + dist, 0, 0);
 			}
+			//if it is the first length, record distance
 			if(i==0){
 				setDistance(dist);
 			}
-			lightAverage += light.getLightValue();
-			lengths[i] = dist;
-			pilot.rotate(90);
+			lightAverage += light.getLightValue();//adds light measurement to lightAverage
+			pilot.rotate(90);//turn left after calculations are recorded
 		}
-		pilot.stop();
-		lightAverage /= 4;
-		
-		
-		
+		pilot.stop();	//stop after all corners are recorded
+		lightAverage /= 4;	// get average of floor colour
 		
 		//pilot.reset();
 		//LCD.drawString("CalcRoom", 4,0);
@@ -113,14 +114,16 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		//map the room initially
 		map();
+
 		LCD.clear();
-		LCD.drawString("total: " + distance, 0, 0);
+		LCD.drawString("total: " + getDistance(), 0, 0);
 		
-		
-		Behavior move = new Move(distance);
+		//init behaviors
+		Behavior move = new Move(getDistance());//default behavior 
 		//Behavior obj = new ObjectDetect();//detects objects
-		Behavior surf = new SurfaceDetect(lightAverage);//detects surface type
+		Behavior surf = new SurfaceDetect(getLightAvg());//detects surface type
 		Behavior end = new HitWall();//end condition
 		
 		

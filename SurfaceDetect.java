@@ -32,6 +32,7 @@ public class SurfaceDetect implements Behavior{
 		while(!suppressed){
 			LCD.drawString("Carpet", 50, 50);
 			Sound.beep();
+			Thread.yield();
 		}
 	}
 
@@ -42,6 +43,6 @@ public class SurfaceDetect implements Behavior{
 
 	//activates behavior 
 	public boolean takeControl(){
-	return light.getLightValue() > (Main.getLightAvg()+9) || light.getLightValue() < (Main.getLightAvg()-9);
+		return (((light.getLightValue()) > (Main.getLightAvg()+9)) || ((light.getLightValue()) < (Main.getLightAvg()-9)));
 	}
 }
