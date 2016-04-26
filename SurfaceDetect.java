@@ -4,6 +4,9 @@ import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
 
+import lejos.robotics.navigation.ArcRotateMoveController;
+import lejos.robotics.navigation.DifferentialPilot;
+
 /*
  * Behavior that reacts to a change in colour of floor
  * Makes a beep and prints "Carpet" to the screen
