@@ -32,10 +32,6 @@ public class Move implements Behavior{
 		Button.waitForAnyPress();
 		LCD.clear();
 		while(!suppressed){
-			if(Main.getPosition() != 0)
-			{
-				Main.setPosition(travelled);
-			}
 			if(Main.getPosition() != distance && !suppressed){
 				pilot.forward();
 			}
