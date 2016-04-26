@@ -60,6 +60,6 @@ public class Move implements Behavior{
 	}
 	
 	public boolean takeControl(){
-		return true;
+		return Main.isMovingCheck();
 	}
 }

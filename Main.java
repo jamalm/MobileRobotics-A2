@@ -20,6 +20,7 @@ public class Main {
 	private static float distance;
 	private static float position;
 	private static int lightAverage;
+	private static boolean move = false;
 
 	private static float length ,width;
 
@@ -29,6 +30,8 @@ public class Main {
 	public static LightSensor light;
 	
 	
+
+
 	//Distance setters and getters
 	public static void setDistance(float travelled){
 		distance = travelled;
@@ -37,6 +40,8 @@ public class Main {
 	public static float getDistance(){
 		return distance;
 	}
+
+
 
 	
 	//Temp getters and setters	
@@ -49,6 +54,8 @@ public class Main {
 	}
 	
 
+
+
 	//Light getters and setters
 	public static void setLightAvg(int _light){
 		lightAverage = _light;
@@ -57,13 +64,19 @@ public class Main {
 	public static int getLightAvg(){
 		return lightAverage;
 	}
+
+	//movement getters and setters
+	public static void setMove(boolean _move){
+		move  = _move;
+	}
+
+	public static boolean isMovingCheck(){
+		return move;
+	}
 	
 	
 	
-	
-	
-	
-	
+	//initial recognition lap function
 	public static void map(){
 		//init hardware sensors
 		pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.B);
@@ -116,7 +129,7 @@ public class Main {
 		
 		//map the room initially
 		map();
-
+		setMove(true);
 		LCD.clear();
 		LCD.drawString("total: " + getDistance(), 0, 0);
 		

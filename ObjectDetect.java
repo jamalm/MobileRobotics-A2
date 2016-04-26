@@ -2,6 +2,7 @@ import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
+import lejos.robotics.navigation.ArcRotateMoveController;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
@@ -11,15 +12,16 @@ import lejos.robotics.subsumption.Behavior;
 public class ObjectDetect implements Behavior{
 	//fields
 	private boolean suppressed = false;
-	private float length, position;
-	private DifferentialPilot pilot;
+	private float distance, position;
+	private ArcRotateMoveController pilot;
 	private UltrasonicSensor sonar;
 
 	//constructor
 	public ObjectDetect(){
 		sonar = new UltrasonicSensor(SensorPort.S4);
-		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
-		length = Main.distance;
+		pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.B);
+		distance = Main.getDistance();
+		distance -= (distance/3);	// take a third off the total 
 	}
 
 	public void action(){
@@ -39,6 +41,6 @@ public class ObjectDetect implements Behavior{
 	}
 
 	public boolean takeControl(){
-		return sonar.getDistance() < 35 && Main.getTempDist() < (length - (length/3));
+		return (sonar.getDistance() < 35) && (Main.getPosition() < distance);
 	}
 }
