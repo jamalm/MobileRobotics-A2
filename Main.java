@@ -129,7 +129,7 @@ public class Main {
 		
 		//map the room initially
 		map();
-		setMove(true);
+
 		LCD.clear();
 		LCD.drawString("total: " + getDistance(), 0, 0);
 		
@@ -140,7 +140,7 @@ public class Main {
 		Behavior end = new HitWall();//end condition
 		
 		
-		Behavior[] steps = {move ,surf, end};
+		Behavior[] steps = {move ,surf};
 
 
 		Arbitrator controller = new Arbitrator(steps);

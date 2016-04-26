@@ -27,18 +27,18 @@ public class Move implements Behavior{
 
 	public void action(){
 		suppressed = false;
-		
 		while(!suppressed){
 			if(Main.getPosition() != distance){
 			pilot.forward();
 			}
 			while(Main.getPosition() < distance){
-				
+		
 				Main.setPosition(pilot.getMovement().getDistanceTraveled());
 				LCD.drawString("MOVING: " + Main.getPosition(), 0, 0);
 			}
 			pilot.stop();
-			
+		}
+		if(Main.getPosition() > (distance - distance/3){
 			direction = !direction;
 			if(direction){
 				pilot.rotate(90);
@@ -51,7 +51,6 @@ public class Move implements Behavior{
 				pilot.rotate(-90);
 				Main.setPosition(0);
 			}
-			Thread.yield();
 		}
 	}
 	
@@ -60,6 +59,6 @@ public class Move implements Behavior{
 	}
 	
 	public boolean takeControl(){
-		return Main.isMovingCheck();
+		return true;
 	}
 }
