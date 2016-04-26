@@ -28,6 +28,10 @@ public class Move implements Behavior{
 	public void action(){
 		suppressed = false;
 		while(!suppressed){
+			if(Main.getPosition() != 0)
+			{
+				Main.setPosition(travelled);
+			}
 			if(Main.getPosition() != distance && !suppressed){
 			pilot.forward();
 			}
@@ -58,6 +62,7 @@ public class Move implements Behavior{
 	}
 	
 	public void suppress(){
+		travelled = getPosition();
 		suppressed = true;
 	}
 	
