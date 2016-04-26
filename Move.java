@@ -27,6 +27,10 @@ public class Move implements Behavior{
 
 	public void action(){
 		suppressed = false;
+		LCD.clear();
+		LCD.drawString("Position: " + Main.getPosition(), 0, 0);
+		Button.waitForAnyPress();
+		LCD.clear();
 		while(!suppressed){
 			if(Main.getPosition() != 0)
 			{
