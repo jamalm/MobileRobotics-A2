@@ -10,7 +10,7 @@ import lejos.robotics.subsumption.Behavior;
  *
  */
 
-public class HitWall implements Behavior, SensorListener {
+public class HitWall implements Behavior, SensorPortListener {
 	//fields
 	private boolean suppressed = false;
 	private TouchSensor touch;
