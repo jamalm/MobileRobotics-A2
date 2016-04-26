@@ -42,13 +42,14 @@ public class Move implements Behavior{
 
 			
 			while(Main.getPosition() < distance && !suppressed){
-		
-				Main.setPosition(Main.getPosition() + pilot.getMovement().getDistanceTraveled());
+				travelled = Main.getPosition() + pilot.getMovement().getDistanceTraveled();
+				Main.setPosition(travelled);
 			}
-			LCD.drawString("Post-Pos: " + Main.getPosition(), 0, 0);
+			/*LCD.drawString("Post-Pos: " + Main.getPosition(), 0, 0);
 			pilot.stop();
 			Button.waitForAnyPress();
-			LCD.clear();
+			LCD.clear();*/
+			pilot.stop();
 			Thread.yield();
 
 			if(Main.getPosition() > (distance - (distance/3)) && !suppressed){
