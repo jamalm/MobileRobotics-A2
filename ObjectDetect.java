@@ -2,7 +2,6 @@ import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
-import lejos.robotics.navigation.ArcRotateMoveController;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
@@ -13,7 +12,7 @@ public class ObjectDetect implements Behavior{
 	//fields
 	private boolean suppressed = false;
 	private float distance, position;
-	private ArcRotateMoveController pilot;
+	private DifferentialPilot pilot;
 	private UltrasonicSensor sonar;
 
 	//constructor
@@ -29,11 +28,11 @@ public class ObjectDetect implements Behavior{
 		LCD.clear();
 		LCD.drawString("Object Detected!", 50, 50);
 		pilot.stop();
-		pilot.rotate(75);
+		pilot.rotate(-90);
 
-		pilot.steer(35, 75);
+		pilot.steer(45, 180);
 
-		pilot.rotate(75);
+		pilot.rotate(-90);
 	}
 
 	public void suppress(){

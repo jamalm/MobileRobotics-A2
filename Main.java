@@ -20,7 +20,7 @@ public class Main {
 	private static float distance;
 	private static float position;
 	private static int lightAverage;
-	private static boolean move = false;
+	private static boolean endHit = false;
 
 	private static float length ,width;
 
@@ -65,14 +65,6 @@ public class Main {
 		return lightAverage;
 	}
 
-	//movement getters and setters
-	public static void setMove(boolean _move){
-		move  = _move;
-	}
-
-	public static boolean isMovingCheck(){
-		return move;
-	}
 	
 	
 	
@@ -103,20 +95,6 @@ public class Main {
 		pilot.stop();	//stop after all corners are recorded
 		lightAverage /= 4;	// get average of floor colour
 		
-		//pilot.reset();
-		//LCD.drawString("CalcRoom", 4,0);
-		/*for(int i=0;i<4;i++){
-			while(sonar.getDistance() > 35){
-				pilot.forward();
-			}
-			dist = pilot.getMovement().getDistanceTraveled();
-			lightAverage += light.getLightValue();
-			lengths[i] = dist;
-			pilot.rotate(70);
-		}
-		setDistance(lengths[0]);
-		width = lengths[1];
-		lightAverage /= 4;*/
 	}
 	
 	
@@ -129,18 +107,20 @@ public class Main {
 		
 		//map the room initially
 		map();
+		setPosition(0);
 
-		LCD.clear();
-		LCD.drawString("total: " + getDistance(), 0, 0);
+		//LCD.clear();
+		//LCD.drawString("total: " + getDistance(), 0, 0);
 		
 		//init behaviors
 		Behavior move = new Move(getDistance());//default behavior 
-		//Behavior obj = new ObjectDetect();//detects objects
+		Behavior turn = new Turn();
+		Behavior obj = new ObjectDetect();//detects objects
 		Behavior surf = new SurfaceDetect(getLightAvg());//detects surface type
 		Behavior end = new HitWall();//end condition
 		
 		
-		Behavior[] steps = {move, surf, end};
+		Behavior[] steps = {move, turn, obj, surf, end};
 
 
 		Arbitrator controller = new Arbitrator(steps);
