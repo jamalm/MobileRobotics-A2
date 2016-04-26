@@ -36,6 +36,7 @@ public class Move implements Behavior{
 				Main.setPosition(pilot.getMovement().getDistanceTraveled());
 			}
 			pilot.stop();
+			Thread.yield();
 
 			if(Main.getPosition() > (distance - (distance/3)) && !suppressed){
 				direction = !direction;
@@ -51,12 +52,13 @@ public class Move implements Behavior{
 					Main.setPosition(0);
 				}
 			}
+			Thread.yield();
 		}
 		
 	}
 	
 	public void suppress(){
-		suppressed = true; 
+		suppressed = true;
 	}
 	
 	public boolean takeControl(){

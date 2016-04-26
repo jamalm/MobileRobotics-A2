@@ -10,15 +10,24 @@ import lejos.robotics.subsumption.Behavior;
  *
  */
 
-public class HitWall implements Behavior{
+public class HitWall implements Behavior, SensorListener {
 	//fields
 	private boolean suppressed = false;
 	private TouchSensor touch;
 	private DifferentialPilot pilot;
+	private boolean hasBumped;
 	
 	public HitWall(){
 		pilot = new DifferentialPilot(2.25f, 5.5f, Motor.A, Motor.B);
 		touch = new TouchSensor(SensorPort.S1);
+		SensorPort.S2.addSensorPortListener(this);
+		hasBumped = false;
+	}
+
+	public void stateChanged(SensorPort port, int oldValue, int newValue){
+		if(touch.isPressed()){
+			hasBumped = true;
+		}
 	}
 
 	public void action(){
@@ -27,9 +36,6 @@ public class HitWall implements Behavior{
 		LCD.drawString("END", 50, 50);
 		Button.waitForAnyPress();
 		System.exit(0);
-		while(!suppressed){
-			Thread.yield();
-		}
 	}
 	
 	public void suppress(){
@@ -37,6 +43,6 @@ public class HitWall implements Behavior{
 	}
 
 	public boolean takeControl(){
-		return touch.isPressed();
+		return hasBumped;
 	}
 }
