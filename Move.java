@@ -62,7 +62,7 @@ public class Move implements Behavior{
 	}
 	
 	public void suppress(){
-		travelled = getPosition();
+		travelled = Main.getPosition();
 		suppressed = true;
 	}
 	
