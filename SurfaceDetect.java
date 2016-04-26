@@ -36,7 +36,7 @@ public class SurfaceDetect implements Behavior{
 		LCD.clear();
 		Sound.playTone(500, 400);
 		LCD.drawString("Carpet", 50, 50);
-		Thread.sleep(1000);
+		try{Thread.sleep(1000);}catch(Exception e){}
 	}
 
 	//suppresses behavior
