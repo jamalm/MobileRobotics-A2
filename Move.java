@@ -38,10 +38,6 @@ public class Move implements Behavior{
 			}
 			if(Main.getPosition() != distance && !suppressed){
 				pilot.forward();
-				pilot.stop();
-				LCD.drawString("Pos: " + Main.getPosition(), 0, 0);
-				Button.waitForAnyPress();
-				LCD.clear();
 			}
 
 			
