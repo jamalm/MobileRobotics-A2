@@ -1,6 +1,7 @@
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
 
