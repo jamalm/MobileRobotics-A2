@@ -37,25 +37,27 @@ public class Move implements Behavior{
 				LCD.drawString("MOVING: " + Main.getPosition(), 0, 0);
 			}
 			pilot.stop();
-		}
-		if(Main.getPosition() > (distance - distance/3){
-			direction = !direction;
-			if(direction){
-				pilot.rotate(90);
-				pilot.travel(7);
-				pilot.rotate(90);
-				Main.setPosition(0);
-			} else {
-				pilot.rotate(-90);
-				pilot.travel(7);
-				pilot.rotate(-90);
-				Main.setPosition(0);
+
+			if(Main.getPosition() > (distance - (distance/3))){
+				direction = !direction;
+				if(direction){
+					pilot.rotate(90);
+					pilot.travel(7);
+					pilot.rotate(90);
+					Main.setPosition(0);
+				} else {
+					pilot.rotate(-90);
+					pilot.travel(7);
+					pilot.rotate(-90);
+					Main.setPosition(0);
+				}
 			}
 		}
+		
 	}
 	
 	public void suppress(){
-		suppressed = true;
+		suppressed = true; 
 	}
 	
 	public boolean takeControl(){

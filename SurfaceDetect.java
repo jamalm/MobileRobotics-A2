@@ -16,12 +16,14 @@ public class SurfaceDetect implements Behavior{
 	private boolean suppressed = false;
 	private int floorColour;
 	private LightSensor light;
+	private ArcRotateMoveController pilot;
 
 	//constructor	
 	public SurfaceDetect(int _floorColour){
 		//takes in average floor colour
 		floorColour = _floorColour;
 		light = new LightSensor(SensorPort.S3);
+		pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.B);
 	}
 
 	//if different surface colour is detected
