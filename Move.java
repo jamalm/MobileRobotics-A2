@@ -28,17 +28,16 @@ public class Move implements Behavior{
 	public void action(){
 		suppressed = false;
 		while(!suppressed){
-			if(Main.getPosition() != distance){
+			if(Main.getPosition() != distance && !suppressed){
 			pilot.forward();
 			}
-			while(Main.getPosition() < distance){
+			while(Main.getPosition() < distance && !suppressed){
 		
 				Main.setPosition(pilot.getMovement().getDistanceTraveled());
-				LCD.drawString("MOVING: " + Main.getPosition(), 0, 0);
 			}
 			pilot.stop();
 
-			if(Main.getPosition() > (distance - (distance/3))){
+			if(Main.getPosition() > (distance - (distance/3)) && !suppressed){
 				direction = !direction;
 				if(direction){
 					pilot.rotate(90);

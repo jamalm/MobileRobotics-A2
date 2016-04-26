@@ -34,10 +34,10 @@ public class SurfaceDetect implements Behavior{
 	public void action(){
 		suppressed = false;
 		LCD.drawString("Carpet", 50, 50);
+		Sound.beep();
 		
 		pilot.forward();
 		while(!suppressed){	
-			Sound.beep();
 			Thread.yield();
 			
 		}
