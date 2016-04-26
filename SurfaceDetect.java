@@ -33,13 +33,13 @@ public class SurfaceDetect implements Behavior{
 	//if different surface colour is detected
 	public void action(){
 		suppressed = false;
-		LCD.drawString("Carpet", 50, 50);
-		Sound.beep();
 		
-		pilot.forward();
 		while(!suppressed){	
 			Thread.yield();
-			
+			LCD.drawString("Carpet", 50, 50);
+			Sound.beep();
+		
+			pilot.forward();
 		}
 	}
 
