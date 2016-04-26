@@ -17,7 +17,9 @@ import lejos.robotics.navigation.DifferentialPilot;
  */
 
 public class SurfaceDetect implements Behavior{
-	private boolean suppressed;
+	//variables
+	private boolean suppressed = false;
+
 	private int floorColour;
 	private LightSensor light;
 	private ArcRotateMoveController pilot;
@@ -33,9 +35,9 @@ public class SurfaceDetect implements Behavior{
 	//if different surface colour is detected
 	public void action(){
 		suppressed = false;
-		Sound.playTone(500, 400);
-		LCD.drawString("Carpet", 0, 0);
-		LCD.drawString("Pos3 :" + Main.getPosition(), 0 ,3);
+		Sound.playTone(500, 400);//beep
+		LCD.drawString("Carpet", 0, 0);//print
+		//LCD.drawString("Pos3 :" + Main.getPosition(), 0 ,3);
 	}
 
 	//suppresses behavior
@@ -44,6 +46,12 @@ public class SurfaceDetect implements Behavior{
 	}
 
 	//activates behavior 
+	/*
+	 * Returns true
+	 * if current light value is > avg+10 
+	 * OR 
+	 * if current light value is < avg-10
+	 */
 	public boolean takeControl(){
 		return (((light.getLightValue()) > (Main.getLightAvg()+9)) || ((light.getLightValue()) < (Main.getLightAvg()-9)));
 	}

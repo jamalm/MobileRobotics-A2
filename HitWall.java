@@ -6,8 +6,11 @@ import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
-/*
+/* Behavior that deals with the end condition is met
+ * being when the touch sensor is hit
  *
+ * @author Jamal Mahmoud - C13730921
+ * @author Minni Hiltunen - D15123113
  */
 
 public class HitWall implements Behavior{
@@ -21,6 +24,10 @@ public class HitWall implements Behavior{
 		touch = new TouchSensor(SensorPort.S1);
 	}
 
+	/* Acts on the touch sensor, 
+	 * prints end to the screen
+	 * and exits program
+	 */
 	public void action(){
 		suppressed = false;
 		pilot.stop();
@@ -35,6 +42,6 @@ public class HitWall implements Behavior{
 	}
 
 	public boolean takeControl(){
-		return touch.isPressed();
+		return touch.isPressed();	//return true when touch is pressed
 	}
 }

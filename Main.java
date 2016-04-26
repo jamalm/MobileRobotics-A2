@@ -16,13 +16,11 @@ import lejos.robotics.subsumption.Behavior;
  */
 
 public class Main {
-	//static variables
-	private static float distance;
-	private static float position;
-	private static int lightAverage;
-	private static boolean endHit = false;
 
-	private static float length ,width;
+	//static variables
+	private static float distance;//used to see the full width of a lap
+	private static float position;//used to detect where the robot is on the lap
+	private static int lightAverage;//used to detect a difference in lighting on the ground
 
 	// Hardware Sensors
 	public static ArcRotateMoveController pilot;
@@ -44,7 +42,7 @@ public class Main {
 
 
 	
-	//Temp getters and setters	
+	//Position getters and setters	
 	public static void setPosition(float pos){
 		position = pos;
 	}
@@ -83,9 +81,9 @@ public class Main {
 			while(sonar.getDistance() > 35){//break only if robot comes close to a wall
 				
 				dist = pilot.getMovement().getDistanceTraveled();//store distance travelled
-				LCD.drawString("" + dist, 0, 0);
+				//LCD.drawString("" + dist, 0, 0);
 			}
-			//if it is the first length, record distance
+			//if it is the first length, record distance into static float distance
 			if(i==0){
 				setDistance(dist);
 			}
@@ -107,24 +105,21 @@ public class Main {
 		
 		//map the room initially
 		map();
-		setPosition(0);
-
-		//LCD.clear();
-		//LCD.drawString("total: " + getDistance(), 0, 0);
+		setPosition(0);//initialise Position of robot
 		
 		//init behaviors
-		Behavior move = new Move(getDistance());//default behavior 
-		Behavior turn = new Turn();
-		Behavior obj = new ObjectDetect();//detects objects
-		Behavior surf = new SurfaceDetect(getLightAvg());//detects surface type
-		Behavior end = new HitWall();//end condition
+		Behavior move = new Move(getDistance());//Base behavior 
+		Behavior turn = new Turn();//turning at a wall behavior
+		Behavior obj = new ObjectDetect();//detects objects and arcs around them
+		Behavior surf = new SurfaceDetect(getLightAvg());//detects surface type and beeps
+		Behavior end = new HitWall();//end condition(hit a wall)
 		
-		
+		//create hierarchy for arbitration
 		Behavior[] steps = {move, turn, obj, surf, end};
 
-
+		//set up arbitration controller
 		Arbitrator controller = new Arbitrator(steps);
 
-		controller.start();
+		controller.start();//start running behaviors
 	}
 }
