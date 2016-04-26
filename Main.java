@@ -140,7 +140,7 @@ public class Main {
 		Behavior end = new HitWall();//end condition
 		
 		
-		Behavior[] steps = {move ,surf, end};
+		Behavior[] steps = {move, surf, end};
 
 
 		Arbitrator controller = new Arbitrator(steps);
